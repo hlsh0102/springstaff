@@ -9,6 +9,9 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -26,7 +29,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+				.antMatchers("/druid/**").permitAll()
 				.anyRequest().authenticated()
+//				.and().csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
+//			@Override
+//			public boolean matches(HttpServletRequest httpServletRequest) {
+//				String servletPath = httpServletRequest.getServletPath();
+//				if (servletPath.contains("/druid")){
+//					return false;
+//				}
+//				return true;
+//			}
+//		})
 				.and().formLogin().loginPage("/login").permitAll().defaultSuccessUrl("/")
 				.and().logout().permitAll();
 	}
