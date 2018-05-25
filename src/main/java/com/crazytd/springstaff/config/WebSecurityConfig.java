@@ -29,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/druid/**").permitAll()
 				.anyRequest().authenticated()
 //				.and().csrf().requireCsrfProtectionMatcher(new RequestMatcher() {
 //			@Override
@@ -47,6 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/css/**");
+		web.ignoring().antMatchers("/css/**","/druid/*");
 	}
 }
