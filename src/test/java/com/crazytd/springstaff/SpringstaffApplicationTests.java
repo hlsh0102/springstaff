@@ -1,6 +1,8 @@
 package com.crazytd.springstaff;
 
 import com.alibaba.fastjson.JSON;
+import com.crazytd.springstaff.aop.Concert;
+import com.crazytd.springstaff.beaninit.GameDisc;
 import com.heweather.sdk.api.HeConfig;
 import com.heweather.sdk.api.HeWeather;
 import com.heweather.sdk.bean.Lang;
@@ -9,7 +11,9 @@ import com.heweather.sdk.bean.weather.now.Now;
 import com.heweather.sdk.util.Callback;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -19,6 +23,7 @@ import static com.alibaba.druid.sql.ast.SQLPartitionValue.Operator.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@EnableAspectJAutoProxy
 public class SpringstaffApplicationTests {
 
 	@Test
@@ -48,4 +53,23 @@ public class SpringstaffApplicationTests {
 			}
 		});
 	}
+
+
+	@Autowired
+	private GameDisc gameDisc;
+
+	@Test
+	public void testGameDisc(){
+		System.out.println(gameDisc);
+
+	}
+
+	@Autowired
+	private Concert concert;
+
+	@Test
+	public void testAOP(){
+		concert.perform();
+	}
+
 }
